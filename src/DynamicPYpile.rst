@@ -19,7 +19,7 @@ Dynamic Lateral Response of a Monopile Foundation Subjected to Lateral Spreading
    and is based on the experimental tests conducted by Abdoun et al. (2003).
 
 #. The source code is shown below and can also be downloaded
-   :download: `here </pyExamples/PilewithDynamicPY_FRANKE_Abdoun2003_MWE.py>`.
+   `here </pyExamples/PilewithDynamicPY_FRANKE_Abdoun2003_MWE.py>`_.
 
 #.  Displacement time-history files are required to run the dynamic analyses. These files are available in the `LATERALSPREAD  <https://github.com/zhuminjie/OpenSeesPyDoc/tree/master/pyExamples/LATERALSPREAD>`_ directory. Download the full folder LATERALSPREAD and add it in the same working directory of the main script. Alternatively, you may want to change the loading path in the main script at line 87.
 
@@ -49,30 +49,41 @@ References
 Model and Results
 -----------------
 
-.. image:: /_static/PileModel.png
-   :alt: Numerical model of the monopile and soil springs
-   :align: center
-   :width: 80%
 
-.. image:: /_static/pileD_Dynamic_animation.gif
-   :alt: Animated lateral response of the monopile
+.. list-table::
+   :widths: 50 50
    :align: center
-   :width: 80%
 
-.. image:: /_static/pileBM_Dynamic_animation.gif
-   :alt: Animated bending moment profile and envelope
-   :align: center
-   :width: 80%
+   * - .. image:: /_static/PileModel.png
+         :alt: Numerical model of the monopile and soil springs
+         :align: center
+         :width: 80%
 
-.. image:: /_static/pilePY_Dynamic_animation.gif
-   :alt: Animated force-displacement path of the p-y spring at 2.0 m depth
-   :align: center
-   :width: 80%
+     - .. image:: /_static/dynpy_curve_at_z2.0_m.png
+            :alt: Franke and Rollins (2013) hybrid p-y relationship at 2.0 m depth
+            :align: center
+            :width: 80%
 
-.. image:: /_static/dynpy_curve_at_z2.0_m.png
-   :alt: Franke and Rollins (2013) hybrid p-y relationship at 2.0 m depth
+
+.. list-table::
+   :widths: 50 50 
    :align: center
-   :width: 80%
+
+   * - .. image:: /_static/pileBM_Dynamic_animation.gif
+            :alt: Animated bending moment profile and envelope
+            :align: center
+            :width: 100%
+
+     - .. image:: /_static/pilePY_Dynamic_animation.gif
+            :alt: Animated force-displacement path of the p-y spring at 2.0 m depth
+            :align: center
+            :width: 100%
+
+
+- .. image:: /_static/pileD_Dynamic_animation.gif
+            :alt: Animated lateral response of the monopile
+            :align: center
+            :width: 80%
 
 
 Source Code

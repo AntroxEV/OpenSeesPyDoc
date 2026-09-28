@@ -19,11 +19,11 @@ Dynamic Lateral Response of a Monopile Foundation Subjected to Lateral Spreading
    and is based on the experimental tests conducted by Abdoun et al. (2003).
 
 #. The source code is shown below and can also be downloaded
-   :download:`here </pyExamples/PilewithDynamicPY_FRANKE_Abdoun2003_MWE.py>`.
+   :download: `here </pyExamples/PilewithDynamicPY_FRANKE_Abdoun2003_MWE.py>`.
 
-#. Additional displacement time-history files are required to run the dynamic
+#.  Displacement time-history files are required to run the dynamic
    analyses. These files are available in the
-   `LateralSpreadingTHs directory <https://github.com/zhuminjie/OpenSeesPyDoc/tree/master/pyExamples/LateralSpreadingTHs>`_.
+   `LATERALSPREAD  <https://github.com/zhuminjie/OpenSeesPyDoc/tree/master/pyExamples/LATERALSPREAD>`_ directory. Download the full folder LATERALSPREAD and add it in the same working directory of the main script. Alternatively, you may want to change the loading path in the main script at line 87.
 
 #. Run the source code in your preferred Python environment to reproduce the
    plots and animations presented below.

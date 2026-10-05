@@ -21,10 +21,10 @@ Dynamic Lateral Response of a Monopile Foundation Subjected to Lateral Spreading
 #. The source code is shown below and can also be downloaded
    `here </pyExamples/PilewithDynamicPY_FRANKE_Abdoun2003_MWE.py>`_.
 
-#.  Displacement time-history files are required to run the dynamic analyses. These files are available in the `LATERALSPREAD  <https://github.com/zhuminjie/OpenSeesPyDoc/tree/master/pyExamples/LATERALSPREAD>`_ directory. Download the full folder LATERALSPREAD and add it in the same working directory of the main script. Alternatively, you may want to change the loading path in the main script at line 87.
+#.  Displacement time-history files are required to run the dynamic analyses. These files are available in the `LATERALSPREAD  <https://github.com/zhuminjie/OpenSeesPyDoc/tree/master/pyExamples/LATERALSPREAD>`_ directory. Download the full folder LATERALSPREAD and add it in the same working directory of the main script. Alternatively, you may want to change the loading path in the main script at lines 88 and 497.
 
 #. Run the source code in your preferred Python environment to reproduce the
-   plots and animations presented below.
+   plot and animations presented below.
 
 
 References
@@ -41,7 +41,13 @@ References
   *Journal of Geotechnical and Geoenvironmental Engineering*, 139(4),
   564–576.
   `https://doi.org/10.1061/(ASCE)GT.1943-5606.0000750 <https://doi.org/10.1061/(ASCE)GT.1943-5606.0000750>`_.
-
+  
+* Ledezma, C.L. and Bray, J.D. (2010).
+  “Probabilistic Performance-Based Procedure to Evaluate Pile Foundations at Sites with Liquefaction-induced Lateral Displacement.”
+  *Journal of Geotechnical and Geoenvironmental Engineering*, 136(3),
+  464–476.
+  `https://ascelibrary.org/doi/10.1061/%28ASCE%29GT.1943-5606.0000226>`_.
+  
 * Reese, L.C., Wang, S.T., Isenhower, W.M., and Arrellaga, J.A. (2004).
   *LPILE Plus 5.0 Technical Manual*. Ensoft, Austin, Texas.
 

@@ -5,13 +5,14 @@ a pile subjected to lateral spreading due to liquefaction, based on the shake ta
 The model uses a combination of p-y curves from Wang & Reese (1998) and Rollins (2005) to define the soil resistance along the pile length.
 Results are verified against the numerical results shown in the paper by Franke and Rollins (2013) and the experimental data from Abdoun et al. (2003).
 
+IMPORTANT: DOWNLOAD THE LATERAL SPREADING DISPLACEMENT DATA FILES FROM THE REPOSITORY AND PLACE THEM IN THE 'LATERALSPREAD' FOLDER BEFORE RUNNING THIS SCRIPT.
 
 @author: Dr Alessandro Tombari (University of Exeter, UK)
 @author: Dr Giovanni Nicosia Li Destri (COWI A/S Denmark)
 @fund: COWI Fonden - Rapid Innovation Initiatives 
 
 
-Keywords: Pile response; Liquefaction; Lateral spreading; Validation from Large-scale shake table test;
+Keywords: Pile response; Liquefaction; Lateral spreading; Validation from centrifuge test;
  Verification of the simplified hybrid p-y spring model for liquefied soils (Franke and Rollins, 2013);
 ---------
 REFERENCES:
@@ -285,7 +286,7 @@ ops.model('basic', '-ndm', 3, '-ndf', 6)	       # 3 dimensions, 6 dof per node
 #-----------------------------------------------------------------------------------
 # GEOMETRY 
 # -------------------------------------------------------------
-# FREE MONOPILE
+# FREE PILE
 
 if Lfree > 0:
     nfreenodes=int(Lfree/dz)
@@ -300,7 +301,7 @@ else:
     zfreelist=[]
     nfreenodes=0
     
-# EMBEDDED MONOPILE 
+# EMBEDDED PILE 
 
 Lemb = Lpile - Lfree
 
@@ -315,16 +316,6 @@ if Lemb % dz != 0:
     print('z=0 added')
 
 #print(zemblist)
-model3_profile = np.genfromtxt('./model3/dispcm.txt', skip_header=1)
-model3_depths = -model3_profile[:, 0]
-model3_displacements = model3_profile[:, 1] / 100.0
-plt.figure(0)
-plt.title('soil displacement profile')
-plt.plot(ylist,zemblist)
-plt.plot(model3_displacements,model3_depths, label='model3/dispcm.txt')
-plt.legend(['computed openseespy', 'model3/dispcm.txt'])
-plt.xlabel('lateral displacement [m]')
-plt.ylabel('depth [m]')
 # -------------------------------------------------------------
 # NODE GENERATION
 for i,z in enumerate(zemblist):
@@ -341,9 +332,7 @@ for i,z in enumerate(zemblist): #Left side nodes (gap non modelled), index 2000
 for i,z in enumerate(zemblist): #Left side nodes (gap non modelled), index 2000
     ops.fix(i+2000, *(1, 1, 1,1, 1, 1)) 			           
 
-ops.fix(1,*(0, 1, 1,0, 0, 1))                   #TOE FULLY FIXED (Because the piles of the shake table case histories (Cubrinovski
-                                                #et al. 2006; He et al. 2009) were fixed at the base of the piles)
-                                                #REVISED : FIGURES SHOWN A NON-NULL ROTATION AT THE BASE, SO NOW THE BASE IS FIXED ONLY IN TRANSLATION, NOT IN ROTATION
+ops.fix(1,*(0, 1, 1,0, 0, 1))                   #FIGURES SHOWN A NON-NULL ROTATION AT THE BASE, THE BASE IS FIXED ONLY IN TRANSLATION, NOT IN ROTATION
 #-----------------------------------------------------------------------------------
 # FINITE ELEMENTS 
 # -------------------------------------------------------------
@@ -351,7 +340,7 @@ matPyTag=1 #starting tag for the uniaxial materials of the soil springs, will be
 matTztag=matPyTag+nnodes+1 #starting tag for the uniaxial materials of the soil springs, will be incremented for each node
 ops.geomTransf('Linear', 1,*(1,0,0))  		       #
 # --------------------------------------------------------------------------------------                                    
-# EMBEDDED MONOPILE
+# EMBEDDED PILE
 if flagEuler == 0:
     print('PILE ELEMENTS: ElasticTimoshenkoBeam')
     #Apile,Ipile,Avpile=CircularSection(Dpile)
@@ -505,7 +494,7 @@ ops.pattern('MultipleSupport', 2)
 for i in range(0,nnodes-1):
     depth = Lpile-i * dz
     depth_str = f"{depth:.1f}"
-    txt_path = os.path.join('./LATSPREAD/', f"tot_disp_depthm_{depth_str}.txt")
+    txt_path = os.path.join('./LATERALSPREAD/', f"tot_disp_depthm_{depth_str}.txt")
     dataf=np.genfromtxt(txt_path,skip_header=1)
     dataf = dataf[~np.isnan(dataf).any(axis=1)]
     timeX=list(dataf[:,0])

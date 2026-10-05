@@ -63,8 +63,8 @@ Lfree = 0.0 #free length pile >=0 (above z=0 ground surface)
 Epile = 2E11 # Pile elastic modulus [Pa]
 Ipile = 8E6/Epile # pile moment of inertia [m4]
 Gpile = 8E10 # Pile shear modulus [Pa]
-rhop = 1270 # pile unit density [kgm-3]
-Apile = np.pi*Dpile**2/4 # pile cross section area [m2]
+rhop = 0 # pile unit density [kgm-3] - consistency with Franke analysis
+Apile = np.pi*Dpile**2/4 # pile cross section area [m2] - this value is not correct and no info is provided in the paper
 Avpile = 3/4*Apile # pile shear area [m2]
 nintpoints=8 #number of interpolation points used to define the Franke p-y curves
 #-------------------------------------------------------------
@@ -82,7 +82,7 @@ tEQ = 34.8 #duration of the seismic analysis [s]
 #------------------------------------------------------------
 # CALCULATION MAX SOIL PROFILE FOR P-Y CURVES
 zdepth_list = [Lpile-i * dz for i in range(0,int(Lpile/dz))]
-ylist=[0,]
+ylist=[]
 for zi in zdepth_list:
     depth_str = f"{zi:.1f}"
     txt_path = os.path.join('./LATERALSPREAD/', f"tot_disp_depthm_{depth_str}.txt") #CHECK ALSO LINE 461
@@ -260,7 +260,7 @@ def get_tzParam ( phi, b, sigV, pEleLength):
     elif phi > fric[5]:
         k = kf[5]
     else:
-        for i in range(dataNum):
+        for i in range(dataNum-1):
             if fric[i] <= phi and phi <= fric[i+1]:
                 k = ((kf[i+1] - kf[i])/(fric[i+1] - fric[i])) * (phi - fric[i]) + kf[i]
         
@@ -357,12 +357,12 @@ if flagEuler == 0:
 else:
     print('PILE ELEMENTS: ElasticBeamColumn')
     for i in range(nnodes-1):
-        ops.element('elasticBeamColumn',i+1, i+1, i+2,Apile, Epile,Gpile,2*Ipile,Ipile,Ipile,1)
+        ops.element('elasticBeamColumn',i+1, i+1, i+2,Apile, Epile,Gpile,2*Ipile,Ipile,Ipile,1,'-mass',Apile*rhop)
 
     if Lfree > 0:
         for i in range(0,nfreenodes-1):
-            ops.element('elasticBeamColumn',i+1000, i+1000, i+1001,Apile, Epile,Gpile,2*Ipile,Ipile,Ipile,1)
-        ops.element('elasticBeamColumn',i+1001, 1, 1000,Apile, Epile,Gpile,2*Ipile,Ipile,Ipile,1)
+            ops.element('elasticBeamColumn',i+1000, i+1000, i+1001,Apile, Epile,Gpile,2*Ipile,Ipile,Ipile,1,'-mass',Apile*rhop)
+        ops.element('elasticBeamColumn',i+1001, 1, 1000,Apile, Epile,Gpile,2*Ipile,Ipile,Ipile,1,'-mass',Apile*rhop)
 # --------------------------------------------------------------------------------------                                    
 # SOIL SPRINGS DEFINITION
 Eini=[]
@@ -494,7 +494,8 @@ ops.pattern('MultipleSupport', 2)
 for i in range(0,nnodes-1):
     depth = Lpile-i * dz
     depth_str = f"{depth:.1f}"
-    txt_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'LATERALSPREAD', f"tot_disp_depthm_{depth_str}.txt")
+    txt_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'LATERALSPREAD', f"tot_disp_depthm_{depth_str}.txt")
+
     dataf=np.genfromtxt(txt_path,skip_header=1)
     dataf = dataf[~np.isnan(dataf).any(axis=1)]
     timeX=list(dataf[:,0])

@@ -494,7 +494,7 @@ ops.pattern('MultipleSupport', 2)
 for i in range(0,nnodes-1):
     depth = Lpile-i * dz
     depth_str = f"{depth:.1f}"
-    txt_path = os.path.join('./LATERALSPREAD/', f"tot_disp_depthm_{depth_str}.txt")
+    txt_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'LATERALSPREAD', f"tot_disp_depthm_{depth_str}.txt")
     dataf=np.genfromtxt(txt_path,skip_header=1)
     dataf = dataf[~np.isnan(dataf).any(axis=1)]
     timeX=list(dataf[:,0])

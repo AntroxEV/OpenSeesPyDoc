@@ -86,7 +86,7 @@ Model and Results
             :width: 100%
 
 
-- .. image:: /_static/pileD_Dynamic_animation.gif
+ .. image:: /_static/pileD_Dynamic_animation.gif
             :alt: Animated lateral response of the monopile
             :align: center
             :width: 80%
